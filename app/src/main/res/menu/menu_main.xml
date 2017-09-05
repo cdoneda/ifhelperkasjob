@@ -17,5 +17,9 @@
         android:icon="@drawable/ic_language_24dp"
         android:orderInCategory="101"
         android:title="Trocar Idioma" />
+    <item
+        android:id="@+id/action_messages"
+        android:orderInCategory="102"
+        android:title="Mensagens" />
 
 </menu>

@@ -23,7 +23,7 @@ public class CursoAdapter extends BaseAdapter {
     private List<Curso> list; //Minha Lista
 
     /**
-     * Construtor forçando a bara para ter o contexto e uma lista
+     * Construtor forçando a barra para ter o contexto e uma lista
      *
      * @param context
      * @param list
