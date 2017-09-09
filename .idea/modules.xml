@@ -3,11 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ifhelper.iml" filepath="$PROJECT_DIR$/ifhelper.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ifhelper3.iml" filepath="$PROJECT_DIR$/ifhelper3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/moodle.iml" filepath="$PROJECT_DIR$/moodle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ifhelperkasjob.iml" filepath="$PROJECT_DIR$/ifhelperkasjob.iml" />
     </modules>
   </component>
 </project>

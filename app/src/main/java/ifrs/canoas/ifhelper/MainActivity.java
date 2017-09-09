@@ -28,7 +28,7 @@ public class MainActivity extends DefaultActivity {
     /**
      * Evento criado para servir como método de listener.
      *
-     * @param v
+     *
      */
     public void calculaFaltas(View v) {
 
@@ -39,7 +39,8 @@ public class MainActivity extends DefaultActivity {
     }
 
     public void calendarioAcademico(View v){
-        Intent objIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.canoas.ifrs.edu.br/site/midias/arquivos/2017625103324485calendario_academico_2017.pdf"));
+        Intent objIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://www.canoas.ifrs.edu.br/site/midias/arquivos/2017625103324485calendario_academico_2017.pdf"));
         startActivity(objIntent);
     }
 
@@ -49,7 +50,7 @@ public class MainActivity extends DefaultActivity {
     /**
      * Chamada para atividade que realiza o login no MOODLE.
      *
-     * @param v
+     *
      */
     public void loginMoodle(View v){
         startActivity(new Intent(this, LoginActivity.class));

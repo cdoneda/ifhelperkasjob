@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">ifhelper</string>
+    <string name="app_name">IfHelper KJ</string>
     <string name="action_settings">Opções</string>
-    <string name="bem_vindo_ao_ifhelper">Bem Vindo ao IFHelper</string>
+    <string name="bem_vindo_ao_ifhelper">Bem Vindo ao IFHelper KJ</string>
     <string name="calcula_media_harmonica">Calcula Média Harmonica</string>
     <string name="media">Média</string>
     <string name="title_activity_login">Login</string>
@@ -21,6 +21,7 @@
     </string>
     <string name="title_activity_listar_curso">ListarCurso</string>
     <string name="meus_cursos">Meus cursos</string>
+    <string name="mensagens">Mensagens</string>
 
     <!-- Strings related to login -->
 </resources>
