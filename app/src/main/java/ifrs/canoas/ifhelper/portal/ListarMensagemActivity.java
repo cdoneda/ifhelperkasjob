@@ -93,7 +93,7 @@ public class ListarMensagemActivity extends DefaultActivity {
         String url = "https://moodle.canoas.ifrs.edu.br/webservice/rest/server.php?" +
                 "wstoken=" + this.token + "&wsfunction=core_enrol_get_users_courses&moodlewsrestformat=json"
                 + "&userid=" + usuario.getUserid();
-        new ListCursosWebService().execute(url);
+        new ListMensagemWebService().execute(url);
     }
 
     private void loadUser() {
@@ -109,7 +109,7 @@ public class ListarMensagemActivity extends DefaultActivity {
      *
      *
      */
-    public void addCurso(View v) {
+    public void addMensagem(View v) {
 
     }
 
@@ -125,7 +125,7 @@ public class ListarMensagemActivity extends DefaultActivity {
 
     }
 
-    private class ListCursosWebService extends AsyncTask<String, Void, String> {
+    private class ListMensagemWebService extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
             try {
@@ -140,11 +140,11 @@ public class ListarMensagemActivity extends DefaultActivity {
         @Override
         protected void onPostExecute(String result) {
             Gson parser = new Gson();
-            List<Curso> listaCursos;
-            listaCursos = parser.fromJson(result, new TypeToken<List<Curso>>() {
+            List<Mensagem> listaMensagens;
+            listaMensagens = parser.fromJson(result, new TypeToken<List<Mensagem>>() {
             }.getType());
-            geraLista(listaCursos);
-            Log.d("Curso", listaCursos.get(0).toString());
+            geraLista(listaMensagens);
+            Log.d("Curso", listaMensagens.get(0).toString());
         }
 
 
