@@ -1,5 +1,7 @@
 package ifrs.canoas.ifhelper;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import ifrs.canoas.ifhelper.geral.CalculaFaltasActivity;
+import ifrs.canoas.ifhelper.portal.ListarCursoActivity;
 
 public abstract class DefaultActivity extends AppCompatActivity {
 
@@ -32,7 +37,12 @@ public abstract class DefaultActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_messages) {
-            Toast.makeText(getApplicationContext(), "aaaa", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "aaaa", Toast.LENGTH_SHORT).show();
+            Context contexto = getApplicationContext();
+            Intent objIntent = new Intent(contexto, ListarCursoActivity.class);
+
+            startActivity(objIntent);
+
             return true;
         }
 

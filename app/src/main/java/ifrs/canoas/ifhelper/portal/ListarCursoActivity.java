@@ -129,6 +129,7 @@ public class ListarCursoActivity extends DefaultActivity {
         @Override
         protected String doInBackground(String... urls) {
             try {
+                Log.i("URL", WebServiceUtil.getContentAsString(urls[0]));
                 return WebServiceUtil.getContentAsString(urls[0]);
             } catch (IOException e) {
                 Log.e("Exception", e.toString());//Observe que aqui uso o log.e e não log.d

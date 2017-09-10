@@ -18,6 +18,7 @@ import java.net.URLEncoder;
 
 import ifrs.canoas.ifhelper.R;
 import ifrs.canoas.ifhelper.portal.ListarCursoActivity;
+import ifrs.canoas.ifhelper.portal.ListarMensagemActivity;
 import ifrs.canoas.lib.WebServiceUtil;
 import ifrs.canoas.model.portal.LoginRetorno;
 
@@ -62,7 +63,8 @@ public class LoginActivity extends AppCompatActivity {
             mensagem.setText(retorno.getError());
         } else {
             //Vamos criar um bundle para passar as info para outra tela e como alternativa seria usar variável estática.
-            Intent intent = new Intent(getApplicationContext(), ListarCursoActivity.class);
+            //Intent intent = new Intent(getApplicationContext(), ListarCursoActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ListarMensagemActivity.class);
             intent.putExtra("token", retorno.getToken());//Observar que o putExtra tem várias assinaturas
             startActivity(intent);
         }

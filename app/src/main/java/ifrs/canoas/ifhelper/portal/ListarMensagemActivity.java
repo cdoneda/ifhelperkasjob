@@ -14,15 +14,18 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import ifrs.canoas.ifhelper.DefaultActivity;
 import ifrs.canoas.ifhelper.R;
 import ifrs.canoas.ifhelper.geral.LoginActivity;
-import ifrs.canoas.lib.CursoAdapter;
+import ifrs.canoas.lib.MensagemAdapter;
 import ifrs.canoas.lib.WebServiceUtil;
-import ifrs.canoas.model.portal.Curso;
+import ifrs.canoas.model.portal.Mensagem;
 import ifrs.canoas.model.portal.User;
 
 public class ListarMensagemActivity extends DefaultActivity {
@@ -34,10 +37,10 @@ public class ListarMensagemActivity extends DefaultActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listar_curso);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_listar_mensagem);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMensagem);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recuperaDados();//Recuperando dados do putExtra
         trataFloatButton();
@@ -67,9 +70,9 @@ public class ListarMensagemActivity extends DefaultActivity {
         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
-    private void geraLista(List<Curso> lista) {
-        list = (ListView) findViewById(R.id.CursosListView);
-        CursoAdapter ad = new CursoAdapter(getApplicationContext(), lista);
+    private void geraLista(List<Mensagem> lista) {
+        list = (ListView) findViewById(R.id.MensagemListView);
+        MensagemAdapter ad = new MensagemAdapter(getApplicationContext(), lista);
         list.setAdapter(ad);
 
         //Sempre que for trabalhar com  Adapters você poderá ter esse problema
@@ -88,12 +91,16 @@ public class ListarMensagemActivity extends DefaultActivity {
         });
     }
 
-    private void populaListaCursos() {
-
+    private void populaListaMensagens() {
+        String url2 = "https://moodle.canoas.ifrs.edu.br/webservice/rest/server.php?wstoken=3221a41c3ae8f524c2161567041c121b&wsfunction=core_message_get_messages&type=conversations&useridto=1480&moodlewsrestformat=json";
         String url = "https://moodle.canoas.ifrs.edu.br/webservice/rest/server.php?" +
-                "wstoken=" + this.token + "&wsfunction=core_enrol_get_users_courses&moodlewsrestformat=json"
-                + "&userid=" + usuario.getUserid();
+                "wstoken=" + this.token + "&wsfunction=core_message_get_messages&moodlewsrestformat=json"
+                + "&useridto=" + usuario.getUserid() +"&type=conversations";
         new ListMensagemWebService().execute(url);
+
+        //https://moodle.canoas.ifrs.edu.br/webservice/rest/server.php?
+        // wstoken=3221a41c3ae8f524c2161567041c121b
+        // &wsfunction=core_message_get_messages&type=conversations&useridto=1480
     }
 
     private void loadUser() {
@@ -107,7 +114,7 @@ public class ListarMensagemActivity extends DefaultActivity {
     /**
      * Forma alternativa de tratar evento
      *
-     *
+     *@param v
      */
     public void addMensagem(View v) {
 
@@ -119,7 +126,7 @@ public class ListarMensagemActivity extends DefaultActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Desafio fazer uma tela como a do wats listando os cursos disponíveis para poder matricular-se
+
             }
         });
 
@@ -129,7 +136,9 @@ public class ListarMensagemActivity extends DefaultActivity {
         @Override
         protected String doInBackground(String... urls) {
             try {
+                Log.i("URL", WebServiceUtil.getContentAsString(urls[0]));
                 return WebServiceUtil.getContentAsString(urls[0]);
+
             } catch (IOException e) {
                 Log.e("Exception", e.toString());//Observe que aqui uso o log.e e não log.d
                 return "Problema ao montar a requisição";
@@ -139,12 +148,22 @@ public class ListarMensagemActivity extends DefaultActivity {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            Gson parser = new Gson();
-            List<Mensagem> listaMensagens;
-            listaMensagens = parser.fromJson(result, new TypeToken<List<Mensagem>>() {
-            }.getType());
-            geraLista(listaMensagens);
-            Log.d("Curso", listaMensagens.get(0).toString());
+            try {
+                Gson parser = new Gson();
+
+                JSONObject my_obj = new JSONObject(result);
+                List<Mensagem> listaMensagens;
+                listaMensagens = parser.fromJson(my_obj.getString("messages"), new TypeToken<List<Mensagem>>() {
+                }.getType());
+                geraLista(listaMensagens);
+                Log.d("Mensagem", listaMensagens.get(0).toString());
+
+
+            } catch (Exception e){
+                Log.e("Erro",e.getMessage());
+            }
+
+            //getJSONArray("elenco")
         }
 
 
@@ -165,11 +184,11 @@ public class ListarMensagemActivity extends DefaultActivity {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            //Com o usuario posso pedir a lista dos seus cursos
+            //Com o usuario posso pedir a lista das mensagens
             Gson g = new Gson();
             usuario = g.fromJson(result, User.class);
-            populaListaCursos();
-            //Observe que chamo aqui o populaListaCurso somente assim tenho certeza que os dados estão disponíveis.
+            populaListaMensagens();
+            //Observe que chamo aqui o populaListaMensagem somente assim tenho certeza que os dados estão disponíveis.
             // Lembre-se assincrono é um processo pararelo e não sequencial como algoritmos.
         }
 

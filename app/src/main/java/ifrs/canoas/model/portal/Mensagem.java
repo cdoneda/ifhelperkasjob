@@ -15,8 +15,6 @@ public class Mensagem {
     //private int timecreated;
     //private int timeread;
 
-    private String summary = "Mensagem sem descrição";
-
     public int getId() {
         return id;
     }
@@ -65,13 +63,7 @@ public class Mensagem {
         this.fullmessage = fullmessage;
     }
 
-    public String getSummary() {
-        return summary;
-    }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
 
     @Override
     public String toString() {
@@ -82,7 +74,6 @@ public class Mensagem {
                 ", useridfrom=" + useridfrom +
                 ", subject='" + subject + '\'' +
                 ", fullmessage='" + fullmessage + '\'' +
-                ", summary='" + summary + '\'' +
                 '}';
     }
 }
