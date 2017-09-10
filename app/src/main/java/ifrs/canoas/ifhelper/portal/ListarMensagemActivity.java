@@ -42,7 +42,10 @@ public class ListarMensagemActivity extends DefaultActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        recuperaDados();//Recuperando dados do putExtra
+        if(usuario == null)
+            recuperaDados();//Recuperando dados do putExtra
+        else
+            loadUser();
         trataFloatButton();
         setToolbar();
 
@@ -53,21 +56,29 @@ public class ListarMensagemActivity extends DefaultActivity {
      *
      */
     private void recuperaDados() {
-        this.token = getIntent().getExtras().getString("token");
 
-        Intent it = getIntent();
-        if (it != null) {//Checar se veio por intent
-            Bundle dados = it.getExtras();
-            if (dados != null && dados.getString("token") != null) { //Checar se tem dados
+        //buscar do sharedPreferences
+        try{
+            this.token = getIntent().getExtras().getString("token");
 
-                this.token = dados.getString("token");
-                //Inicialmente preciso dos dados do user
-                loadUser();
-                return ;
+            Intent it = getIntent();
+            if (it != null) {//Checar se veio por intent
+                Bundle dados = it.getExtras();
+                if (dados != null && dados.getString("token") != null) { //Checar se tem dados
+
+                    this.token = dados.getString("token");
+                    //Inicialmente preciso dos dados do user
+                    loadUser();
+                    return ;
+                }
             }
+
+        } catch (Exception e){
+            //TODO o correto é tratar essas possíveis exceções um exemplo pode ser abrir o LoginActivity novamente
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
-        //TODO o correto é tratar essas possíveis exceções um exemplo pode ser abrir o LoginActivity novamente
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
+
     }
 
     private void geraLista(List<Mensagem> lista) {
@@ -92,9 +103,8 @@ public class ListarMensagemActivity extends DefaultActivity {
     }
 
     private void populaListaMensagens() {
-        String url2 = "https://moodle.canoas.ifrs.edu.br/webservice/rest/server.php?wstoken=3221a41c3ae8f524c2161567041c121b&wsfunction=core_message_get_messages&type=conversations&useridto=1480&moodlewsrestformat=json";
         String url = "https://moodle.canoas.ifrs.edu.br/webservice/rest/server.php?" +
-                "wstoken=" + this.token + "&wsfunction=core_message_get_messages&moodlewsrestformat=json"
+                "wstoken=" + this.token + "&wsfunction=core_message_get_messages&moodlewsrestformat=json&read=1"
                 + "&useridto=" + usuario.getUserid() +"&type=conversations";
         new ListMensagemWebService().execute(url);
 

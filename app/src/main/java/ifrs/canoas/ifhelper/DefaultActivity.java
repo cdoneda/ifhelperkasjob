@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import ifrs.canoas.ifhelper.geral.CalculaFaltasActivity;
 import ifrs.canoas.ifhelper.portal.ListarCursoActivity;
+import ifrs.canoas.ifhelper.portal.ListarMensagemActivity;
 
 public abstract class DefaultActivity extends AppCompatActivity {
 
@@ -39,7 +40,7 @@ public abstract class DefaultActivity extends AppCompatActivity {
         if (id == R.id.action_messages) {
             //Toast.makeText(getApplicationContext(), "aaaa", Toast.LENGTH_SHORT).show();
             Context contexto = getApplicationContext();
-            Intent objIntent = new Intent(contexto, ListarCursoActivity.class);
+            Intent objIntent = new Intent(contexto, ListarMensagemActivity.class);
 
             startActivity(objIntent);
 
